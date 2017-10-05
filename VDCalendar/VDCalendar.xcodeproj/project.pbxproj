@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */; };
 		3C6C2D301F85EFD800639647 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D2F1F85EFD800639647 /* main.m */; };
 		3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D321F85EFD800639647 /* AppDelegate.m */; };
-		3C6C2D361F85EFD800639647 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D351F85EFD800639647 /* ViewController.m */; };
-		3C6C2D391F85EFD800639647 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C6C2D371F85EFD800639647 /* Main.storyboard */; };
+		3C6C2D361F85EFD800639647 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D351F85EFD800639647 /* CalendarViewController.m */; };
 		3C6C2D3B1F85EFD800639647 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C6C2D3A1F85EFD800639647 /* Assets.xcassets */; };
 		3C6C2D3E1F85EFD800639647 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C6C2D3C1F85EFD800639647 /* LaunchScreen.storyboard */; };
 		3C6C2D491F85EFD900639647 /* VDCalendarTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D481F85EFD900639647 /* VDCalendarTests.m */; };
 		3C6C2D541F85EFD900639647 /* VDCalendarUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D531F85EFD900639647 /* VDCalendarUITests.m */; };
+		3CEF4A3E1F86998F00D8BA48 /* DateDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CEF4A3D1F86998F00D8BA48 /* DateDataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,13 +36,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C1FF48F1F86A9AE00D0A63D /* GenericFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFunctions.h; sourceTree = "<group>"; };
+		3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericFunctions.m; sourceTree = "<group>"; };
+		3C1FF4921F86BA9A00D0A63D /* CalendarPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarPrefixHeader.pch; sourceTree = "<group>"; };
 		3C6C2D2B1F85EFD800639647 /* VDCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VDCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C6C2D2F1F85EFD800639647 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3C6C2D311F85EFD800639647 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3C6C2D321F85EFD800639647 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		3C6C2D341F85EFD800639647 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3C6C2D351F85EFD800639647 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		3C6C2D381F85EFD800639647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		3C6C2D341F85EFD800639647 /* CalendarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		3C6C2D351F85EFD800639647 /* CalendarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		3C6C2D3A1F85EFD800639647 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C6C2D3D1F85EFD800639647 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3C6C2D3F1F85EFD800639647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +54,8 @@
 		3C6C2D4F1F85EFD900639647 /* VDCalendarUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VDCalendarUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C6C2D531F85EFD900639647 /* VDCalendarUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VDCalendarUITests.m; sourceTree = "<group>"; };
 		3C6C2D551F85EFD900639647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3CEF4A3C1F86998F00D8BA48 /* DateDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateDataManager.h; sourceTree = "<group>"; };
+		3CEF4A3D1F86998F00D8BA48 /* DateDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +83,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3C1FF48E1F86A99B00D0A63D /* GenericClasses */ = {
+			isa = PBXGroup;
+			children = (
+				3C1FF48F1F86A9AE00D0A63D /* GenericFunctions.h */,
+				3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */,
+			);
+			name = GenericClasses;
+			sourceTree = "<group>";
+		};
 		3C6C2D221F85EFD800639647 = {
 			isa = PBXGroup;
 			children = (
@@ -101,15 +115,17 @@
 		3C6C2D2D1F85EFD800639647 /* VDCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				3C1FF48E1F86A99B00D0A63D /* GenericClasses */,
+				3CEF4A3B1F86995A00D8BA48 /* DataManagers */,
 				3C6C2D311F85EFD800639647 /* AppDelegate.h */,
 				3C6C2D321F85EFD800639647 /* AppDelegate.m */,
-				3C6C2D341F85EFD800639647 /* ViewController.h */,
-				3C6C2D351F85EFD800639647 /* ViewController.m */,
-				3C6C2D371F85EFD800639647 /* Main.storyboard */,
+				3C6C2D341F85EFD800639647 /* CalendarViewController.h */,
+				3C6C2D351F85EFD800639647 /* CalendarViewController.m */,
 				3C6C2D3A1F85EFD800639647 /* Assets.xcassets */,
 				3C6C2D3C1F85EFD800639647 /* LaunchScreen.storyboard */,
 				3C6C2D3F1F85EFD800639647 /* Info.plist */,
 				3C6C2D2E1F85EFD800639647 /* Supporting Files */,
+				3C1FF4921F86BA9A00D0A63D /* CalendarPrefixHeader.pch */,
 			);
 			path = VDCalendar;
 			sourceTree = "<group>";
@@ -138,6 +154,15 @@
 				3C6C2D551F85EFD900639647 /* Info.plist */,
 			);
 			path = VDCalendarUITests;
+			sourceTree = "<group>";
+		};
+		3CEF4A3B1F86995A00D8BA48 /* DataManagers */ = {
+			isa = PBXGroup;
+			children = (
+				3CEF4A3C1F86998F00D8BA48 /* DateDataManager.h */,
+				3CEF4A3D1F86998F00D8BA48 /* DateDataManager.m */,
+			);
+			name = DataManagers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +276,6 @@
 			files = (
 				3C6C2D3E1F85EFD800639647 /* LaunchScreen.storyboard in Resources */,
 				3C6C2D3B1F85EFD800639647 /* Assets.xcassets in Resources */,
-				3C6C2D391F85EFD800639647 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,9 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3C6C2D361F85EFD800639647 /* ViewController.m in Sources */,
+				3C6C2D361F85EFD800639647 /* CalendarViewController.m in Sources */,
 				3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */,
+				3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */,
 				3C6C2D301F85EFD800639647 /* main.m in Sources */,
+				3CEF4A3E1F86998F00D8BA48 /* DateDataManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,14 +340,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		3C6C2D371F85EFD800639647 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				3C6C2D381F85EFD800639647 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		3C6C2D3C1F85EFD800639647 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -428,6 +446,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = S8836B4HA9;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/VDCalendar/CalendarPrefixHeader.pch";
 				INFOPLIST_FILE = VDCalendar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.startrek.VDCalendar;
@@ -440,6 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = S8836B4HA9;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/VDCalendar/CalendarPrefixHeader.pch";
 				INFOPLIST_FILE = VDCalendar/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.startrek.VDCalendar;
@@ -516,6 +536,7 @@
 				3C6C2D5A1F85EFD900639647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C6C2D5B1F85EFD900639647 /* Build configuration list for PBXNativeTarget "VDCalendarTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +545,7 @@
 				3C6C2D5D1F85EFD900639647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C6C2D5E1F85EFD900639647 /* Build configuration list for PBXNativeTarget "VDCalendarUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +554,7 @@
 				3C6C2D601F85EFD900639647 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
