@@ -7,9 +7,13 @@
 //
 
 #import "MonthsCollectionViewCell.h"
+#import "DateDataManager.h"
+#import "GenericFunctions.h"
 
 @implementation MonthsCollectionViewCell{
     UILabel *dateLabel;
+    UILabel *monthLabel;
+    CGRect initialFrameOfDateLabel;
 }
 
 -(id)initWithFrame:(CGRect)frame{
@@ -18,6 +22,13 @@
         dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
         [dateLabel setTextAlignment:NSTextAlignmentCenter];
         [self.contentView addSubview:dateLabel];
+        initialFrameOfDateLabel = dateLabel.frame;
+        
+        monthLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height/2)];
+        [monthLabel setTextAlignment:NSTextAlignmentCenter];
+        [monthLabel setFont:[UIFont systemFontOfSize:12.0]];
+        [self.contentView addSubview:monthLabel];
+        [monthLabel setHidden:YES];
         
     }
     return self;
@@ -27,7 +38,22 @@
     [dateLabel setText:@""];
 }
 
--(void)updateCellDataWithDateString:(NSString *)dateString{
-    [dateLabel setText:dateString];
+-(void)updateCellDataForPosition:(NSInteger)position{
+    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:position];
+    NSString *dateString = [GenericFunctions getDateTitleWithMonthForDate:dateForSection];
+    NSArray *dateComponents = [dateString componentsSeparatedByString:@" "];
+    if([[dateComponents objectAtIndex:0] isEqualToString:@"1"]){
+        [monthLabel setHidden:NO];
+        [monthLabel setText:[dateComponents objectAtIndex:1]];
+        CGRect tempFrameOfDateLabel = dateLabel.frame;
+        tempFrameOfDateLabel.origin.y = self.frame.size.height/2;
+        tempFrameOfDateLabel.size.height = self.frame.size.height/2;
+        dateLabel.frame = tempFrameOfDateLabel;
+    }else{
+        [monthLabel setHidden:YES];
+        dateLabel.frame = initialFrameOfDateLabel;
+    }
+
+    [dateLabel setText:[dateComponents objectAtIndex:0]];
 }
 @end

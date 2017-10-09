@@ -16,4 +16,6 @@
 
 + (NSString *) getDateTitle: (NSDate *) date;
 
++ (NSString *) getDateTitleWithMonthForDate: (NSDate *) date;
+
 @end

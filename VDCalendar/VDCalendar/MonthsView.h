@@ -8,7 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol MonthsViewDelegate <NSObject>
+
+@optional
+-(void)changeMonthTitleWithPosition:(NSInteger)position;
+-(void)didSelectItemAtPosition:(NSInteger)position;
+
+@end
+
 @interface MonthsView : UIView
+
+@property (nonatomic, weak) id <MonthsViewDelegate> delegate;
+
+-(void)setCurrentPositionOfCalendar:(NSInteger)currentPosition;
 -(void)reloadCollection;
 
 @end

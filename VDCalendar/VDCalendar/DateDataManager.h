@@ -25,4 +25,8 @@
 
 - (NSUInteger)getPositionOfDate:(NSDate *)date;
 
+-(void)setCurrentPosition:(NSInteger)currentPosition;
+
+-(NSInteger)getCurrentPosition;
+
 @end

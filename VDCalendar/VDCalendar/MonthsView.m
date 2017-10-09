@@ -79,7 +79,7 @@
 //    return;
     [monthsCollectionView reloadData];
     [self layoutSubviews];
-    [monthsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[[DateDataManager sharedInstance] getPositionOfDate:[NSDate date]] inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
+    [monthsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[[DateDataManager sharedInstance] getCurrentPosition] inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
     isLoadingFirstTime = NO;
 }
 
@@ -92,33 +92,18 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(nonnull NSIndexPath *)indexPath{
     MonthsCollectionViewCell *collectionCell = [collectionView dequeueReusableCellWithReuseIdentifier:kCollectionCellReuseIdentifier forIndexPath:indexPath];
     
-    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:indexPath.row];
-    [collectionCell updateCellDataWithDateString:[GenericFunctions getDateTitle:dateForSection]];
+    [collectionCell updateCellDataForPosition:indexPath.row];
+    
     return collectionCell;
 }
 
--(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
-//    if(indexPath.row==0 && !isLoadingFirstTime){
-//        [self loadPreviousDates];
-//    }else if(indexPath.row==[[DateDataManager sharedInstance] getNumberOfDays]-1){
-//        
-//        [self loadNextDates];
-//    }
-}
 
+-(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(didSelectItemAtPosition:)]){
+        [self.delegate didSelectItemAtPosition:indexPath.row];
+    }
+}
 #pragma mark - scroll view delegates
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    NSArray *visibleCells = [monthsCollectionView visibleCells];
-//    UICollectionViewCell *tempCell = [visibleCells objectAtIndex:0];
-//    if([monthsCollectionView indexPathForCell:tempCell].row==0){
-//        [self loadPreviousDates];
-//    }
-//    tempCell = [visibleCells lastObject];
-//    if([monthsCollectionView indexPathForCell:tempCell].row == [[DateDataManager sharedInstance] getNumberOfDays]-1){
-//        [self loadNextDates];
-//    }
-}
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if(scrollView.contentOffset.y<kMonthsCollectionViewCellHeight && !isLoadingFirstTime){
@@ -127,11 +112,10 @@
         [self loadNextDates];
         isLoadingFirstTime = NO;
     }
-//    NSArray *temp = [(UITableView *)scrollView indexPathsForVisibleRows];
-//    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:[(NSIndexPath *)[temp objectAtIndex:0] section]];
-//    NSString *monthString = [GenericFunctions getMonthStringForDate:dateForSection];
-//    [monthButton setTitle:monthString forState:UIControlStateNormal];
-    
+    NSIndexPath *topIndexpath =[(UICollectionView *)scrollView indexPathForItemAtPoint:CGPointMake(10, scrollView.contentOffset.y+10)] ;
+        if(self.delegate && [self.delegate respondsToSelector:@selector(changeMonthTitleWithPosition:)]){
+            [self.delegate changeMonthTitleWithPosition:topIndexpath.row];
+        }
 }
 
 
@@ -139,9 +123,7 @@
 
 -(void)loadPreviousDates{
     
-    
-    
-    [[DateDataManager sharedInstance] updateStartDateTo:[[[DateDataManager sharedInstance] getStartDate] dateByAddingTimeInterval:-kOneMonthTime]];
+    [[DateDataManager sharedInstance] updateStartDateTo:[[[DateDataManager sharedInstance] getStartDate] dateByAddingTimeInterval:-kOneDayTime*28]];
     CGFloat offsetY = monthsCollectionView.contentSize.height - monthsCollectionView.contentOffset.y;
     [monthsCollectionView reloadData];
     [monthsCollectionView layoutIfNeeded]; // Force layout so things are updated before resetting the contentOffset.
@@ -151,7 +133,7 @@
 }
 
 -(void)loadNextDates{
-    [[DateDataManager sharedInstance] updateEndDateTo:[[[DateDataManager sharedInstance] getEndDate] dateByAddingTimeInterval:kOneMonthTime]];
+    [[DateDataManager sharedInstance] updateEndDateTo:[[[DateDataManager sharedInstance] getEndDate] dateByAddingTimeInterval:kOneDayTime*28]];
 //    CGPoint offset = self.agendasTableView.contentOffset;
     //    offset.y = kAgendaTableViewHeaderHeight*30;
     [monthsCollectionView reloadData];

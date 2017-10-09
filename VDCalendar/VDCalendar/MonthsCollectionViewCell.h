@@ -10,6 +10,6 @@
 
 @interface MonthsCollectionViewCell : UICollectionViewCell
 
--(void)updateCellDataWithDateString:(NSString *)dateString;
+-(void)updateCellDataForPosition:(NSInteger)position;
 
 @end

@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
+@property (nonatomic, assign) NSInteger currentPosition;
 
 
 
@@ -33,10 +34,10 @@
             NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
                                                                fromDate:[NSDate date]];
             
-            weekday--;
-            weekday = weekday+7;
-            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*weekday];
-            _sharedInstance.endDate = [[NSDate date] dateByAddingTimeInterval:kOneMonthTime];
+//            weekday--;
+//            weekday = weekday+7;
+            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*(weekday+6)];
+            _sharedInstance.endDate = [[NSDate date] dateByAddingTimeInterval:kOneDayTime*(28-weekday)];
             
         });
     }
@@ -46,7 +47,9 @@
 
 
 -(void)updateStartDateTo:(NSDate *)date{
+    _currentPosition = [self.startDate timeIntervalSinceDate:date]/kOneDayTime+_currentPosition;
     self.startDate = date;
+    
 }
 
 -(void)updateEndDateTo:(NSDate *)date{
@@ -74,6 +77,13 @@
 
 - (NSUInteger)getPositionOfDate:(NSDate *)date {
     return [date timeIntervalSinceDate:_startDate] / kOneDayTime;
+}
+
+-(void)setCurrentPosition:(NSInteger)currentPosition{
+    _currentPosition = currentPosition;
+}
+-(NSInteger)getCurrentPosition{
+    return _currentPosition;
 }
 
 @end
