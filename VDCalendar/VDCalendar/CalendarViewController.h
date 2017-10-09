@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MonthsView;
 
 @interface CalendarViewController : UIViewController
 
+-(UITableView *)getAgendaTableView;
+
+-(MonthsView *)getMonthsView;
 
 @end
 

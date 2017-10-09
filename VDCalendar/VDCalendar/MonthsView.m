@@ -41,6 +41,10 @@
     return self;
 }
 
+-(UICollectionView *)getCollectionView{
+    return monthsCollectionView;
+}
+
 -(void)setupWeeksLabelsView{
     NSArray *weeksLabelArray = [[NSArray alloc] initWithObjects:@"S",@"M",@"T",@"W",@"T",@"F",@"S", nil];
      labelsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kMonthsCollectionViewCellHeight)];

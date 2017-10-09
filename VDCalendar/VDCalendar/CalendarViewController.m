@@ -41,7 +41,7 @@
     self.agendasTableView.dataSource = self;
     [self.agendasTableView setBackgroundColor:[UIColor whiteColor]];
     [self.agendasTableView setShowsVerticalScrollIndicator:NO];
-    
+    [self.agendasTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"AgendasHeader"];
     NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
                                                        fromDate:[NSDate date]];
     
@@ -49,6 +49,15 @@
     weekday = weekday+7;
     [self.agendasTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:weekday] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     [self.view addSubview:self.agendasTableView];
+}
+
+-(UITableView *)getAgendaTableView{
+    return _agendasTableView;
+}
+
+-(MonthsView *)getMonthsView{
+    [self monthButtonTapped];
+    return monthsView;
 }
 
 -(void)setupNavigationBar{
@@ -65,6 +74,12 @@
     [monthButton setImage:[UIImage imageNamed:@"DownArrow"] forState:UIControlStateNormal];
     [monthButton addTarget:self action:@selector(monthButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:monthButton]];
+    
+    if(!monthsView){
+        monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
+        monthsView.delegate = self;
+        isMonthViewVisible = NO;
+    }
     
 }
 
@@ -89,12 +104,25 @@
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, kAgendaTableViewHeaderHeight)];
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
+    
+    static NSString *HeaderIdentifier = @"AgendasHeader";
+    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifier];
+    
+    if(!headerView) {
+        headerView =[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"AgendasHeader"];
+    }else{
+//        for(UIView *subview in headerView.subviews)
+//            [subview removeFromSuperview];
+    }
+
+    
+//    headerView.t
+    
+//    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
     
     NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:section];
-    [dateLabel setText:[GenericFunctions getAgendaSectionTitleForDate:dateForSection]];
-    [headerView addSubview:dateLabel];
+    [headerView.textLabel setText:[GenericFunctions getAgendaSectionTitleForDate:dateForSection]];
+//    [headerView addSubview:dateLabel];
     [headerView setBackgroundColor:[UIColor whiteColor]];
     return headerView;
 }
@@ -156,11 +184,6 @@
 #pragma mark - month button action
 
 -(void)monthButtonTapped{
-    if(!monthsView){
-        monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
-        monthsView.delegate = self;
-        isMonthViewVisible = NO;
-    }
     if(isMonthViewVisible){
         [self hideMonthsView];
     }else{

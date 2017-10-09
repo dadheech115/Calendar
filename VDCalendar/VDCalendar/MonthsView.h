@@ -20,7 +20,7 @@
 
 @property (nonatomic, weak) id <MonthsViewDelegate> delegate;
 
--(void)setCurrentPositionOfCalendar:(NSInteger)currentPosition;
 -(void)reloadCollection;
+-(UICollectionView *)getCollectionView;
 
 @end
