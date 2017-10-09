@@ -12,4 +12,8 @@
 
 + (NSString *) getAgendaSectionTitleForDate: (NSDate *) date;
 
++ (NSString *) getMonthStringForDate: (NSDate *) date;
+
++ (NSString *) getDateTitle: (NSDate *) date;
+
 @end

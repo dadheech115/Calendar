@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 
+
+
 @end
 
 @implementation DateDataManager
@@ -27,7 +29,13 @@
             _sharedInstance = [[super alloc] init];
             
             //Setting up Innitial start date and end date for the calendar
-            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*5];
+            
+            NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
+                                                               fromDate:[NSDate date]];
+            
+            weekday--;
+            weekday = weekday+7;
+            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*weekday];
             _sharedInstance.endDate = [[NSDate date] dateByAddingTimeInterval:kOneMonthTime];
             
         });
@@ -62,6 +70,10 @@
 //    if([date compare:_endDate] ==  NSOrderedDescending)
 //        return nil;
     return date;
+}
+
+- (NSUInteger)getPositionOfDate:(NSDate *)date {
+    return [date timeIntervalSinceDate:_startDate] / kOneDayTime;
 }
 
 @end

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */; };
+		3C4DC0FC1F8772B200387034 /* MonthsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DC0FB1F8772B200387034 /* MonthsView.m */; };
+		3C4DC1001F8A9B2D00387034 /* MonthsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DC0FF1F8A9B2D00387034 /* MonthsCollectionViewCell.m */; };
 		3C6C2D301F85EFD800639647 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D2F1F85EFD800639647 /* main.m */; };
 		3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D321F85EFD800639647 /* AppDelegate.m */; };
 		3C6C2D361F85EFD800639647 /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D351F85EFD800639647 /* CalendarViewController.m */; };
@@ -39,6 +41,10 @@
 		3C1FF48F1F86A9AE00D0A63D /* GenericFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFunctions.h; sourceTree = "<group>"; };
 		3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericFunctions.m; sourceTree = "<group>"; };
 		3C1FF4921F86BA9A00D0A63D /* CalendarPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarPrefixHeader.pch; sourceTree = "<group>"; };
+		3C4DC0FA1F8772B200387034 /* MonthsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthsView.h; sourceTree = "<group>"; };
+		3C4DC0FB1F8772B200387034 /* MonthsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthsView.m; sourceTree = "<group>"; };
+		3C4DC0FE1F8A9B2D00387034 /* MonthsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthsCollectionViewCell.h; sourceTree = "<group>"; };
+		3C4DC0FF1F8A9B2D00387034 /* MonthsCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthsCollectionViewCell.m; sourceTree = "<group>"; };
 		3C6C2D2B1F85EFD800639647 /* VDCalendar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VDCalendar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C6C2D2F1F85EFD800639647 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3C6C2D311F85EFD800639647 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -92,6 +98,24 @@
 			name = GenericClasses;
 			sourceTree = "<group>";
 		};
+		3C4DC0F91F87728100387034 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3C4DC0FA1F8772B200387034 /* MonthsView.h */,
+				3C4DC0FB1F8772B200387034 /* MonthsView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		3C4DC0FD1F8A9B0F00387034 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				3C4DC0FE1F8A9B2D00387034 /* MonthsCollectionViewCell.h */,
+				3C4DC0FF1F8A9B2D00387034 /* MonthsCollectionViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		3C6C2D221F85EFD800639647 = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +139,8 @@
 		3C6C2D2D1F85EFD800639647 /* VDCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				3C4DC0FD1F8A9B0F00387034 /* Cells */,
+				3C4DC0F91F87728100387034 /* Views */,
 				3C1FF48E1F86A99B00D0A63D /* GenericClasses */,
 				3CEF4A3B1F86995A00D8BA48 /* DataManagers */,
 				3C6C2D311F85EFD800639647 /* AppDelegate.h */,
@@ -301,7 +327,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C6C2D361F85EFD800639647 /* CalendarViewController.m in Sources */,
+				3C4DC0FC1F8772B200387034 /* MonthsView.m in Sources */,
 				3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */,
+				3C4DC1001F8A9B2D00387034 /* MonthsCollectionViewCell.m in Sources */,
 				3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */,
 				3C6C2D301F85EFD800639647 /* main.m in Sources */,
 				3CEF4A3E1F86998F00D8BA48 /* DateDataManager.m in Sources */,

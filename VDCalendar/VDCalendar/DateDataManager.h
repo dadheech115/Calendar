@@ -23,4 +23,6 @@
 
 - (NSDate *)getDateForPosition: (NSUInteger) position;
 
+- (NSUInteger)getPositionOfDate:(NSDate *)date;
+
 @end

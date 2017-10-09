@@ -25,5 +25,34 @@
     return nil;
 }
 
++ (NSString *) getMonthStringForDate: (NSDate *) date {
+    if(date) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        
+        
+        [formatter setDateFormat:@"MMM"];
+        
+        return [formatter stringFromDate:date];
+    }
+    return nil;
+}
++ (NSString *) getDateTitle: (NSDate *) date {
+    if(date) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        
+        
+        [formatter setDateFormat:@"d"];
+        
+        return [formatter stringFromDate:date];
+    }
+    return nil;
+}
+
 
 @end
