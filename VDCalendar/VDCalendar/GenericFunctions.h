@@ -18,4 +18,6 @@
 
 + (NSString *) getDateTitleWithMonthForDate: (NSDate *) date;
 
++ (NSString *) getDateStringInDDMMYYYYForDate: (NSDate *) date;
+
 @end

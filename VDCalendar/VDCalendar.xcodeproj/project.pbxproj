@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */; };
+		3C2E01721F8CE11F0094B1F6 /* Agenda.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E01711F8CE11F0094B1F6 /* Agenda.json */; };
+		3C2E01751F8CE2920094B1F6 /* AgendasManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E01741F8CE2920094B1F6 /* AgendasManager.m */; };
+		3C2E01791F8CE4570094B1F6 /* Agenda.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E01781F8CE4570094B1F6 /* Agenda.m */; };
+		3C2E017C1F8D14C90094B1F6 /* AgendasCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E017B1F8D14C90094B1F6 /* AgendasCollection.m */; };
+		3C2E017F1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E017E1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.m */; };
 		3C4DC0FC1F8772B200387034 /* MonthsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DC0FB1F8772B200387034 /* MonthsView.m */; };
 		3C4DC1001F8A9B2D00387034 /* MonthsCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C4DC0FF1F8A9B2D00387034 /* MonthsCollectionViewCell.m */; };
 		3C6C2D301F85EFD800639647 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C6C2D2F1F85EFD800639647 /* main.m */; };
@@ -41,6 +46,15 @@
 		3C1FF48F1F86A9AE00D0A63D /* GenericFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFunctions.h; sourceTree = "<group>"; };
 		3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericFunctions.m; sourceTree = "<group>"; };
 		3C1FF4921F86BA9A00D0A63D /* CalendarPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarPrefixHeader.pch; sourceTree = "<group>"; };
+		3C2E01711F8CE11F0094B1F6 /* Agenda.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Agenda.json; sourceTree = "<group>"; };
+		3C2E01731F8CE2920094B1F6 /* AgendasManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendasManager.h; sourceTree = "<group>"; };
+		3C2E01741F8CE2920094B1F6 /* AgendasManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendasManager.m; sourceTree = "<group>"; };
+		3C2E01771F8CE4570094B1F6 /* Agenda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agenda.h; sourceTree = "<group>"; };
+		3C2E01781F8CE4570094B1F6 /* Agenda.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agenda.m; sourceTree = "<group>"; };
+		3C2E017A1F8D14C90094B1F6 /* AgendasCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendasCollection.h; sourceTree = "<group>"; };
+		3C2E017B1F8D14C90094B1F6 /* AgendasCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendasCollection.m; sourceTree = "<group>"; };
+		3C2E017D1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaDetailTableViewCell.h; sourceTree = "<group>"; };
+		3C2E017E1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaDetailTableViewCell.m; sourceTree = "<group>"; };
 		3C4DC0FA1F8772B200387034 /* MonthsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthsView.h; sourceTree = "<group>"; };
 		3C4DC0FB1F8772B200387034 /* MonthsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthsView.m; sourceTree = "<group>"; };
 		3C4DC0FE1F8A9B2D00387034 /* MonthsCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthsCollectionViewCell.h; sourceTree = "<group>"; };
@@ -98,6 +112,26 @@
 			name = GenericClasses;
 			sourceTree = "<group>";
 		};
+		3C2E01701F8CE0E50094B1F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				3C6C2D3A1F85EFD800639647 /* Assets.xcassets */,
+				3C2E01711F8CE11F0094B1F6 /* Agenda.json */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		3C2E01761F8CE4420094B1F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3C2E01771F8CE4570094B1F6 /* Agenda.h */,
+				3C2E01781F8CE4570094B1F6 /* Agenda.m */,
+				3C2E017A1F8D14C90094B1F6 /* AgendasCollection.h */,
+				3C2E017B1F8D14C90094B1F6 /* AgendasCollection.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		3C4DC0F91F87728100387034 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -112,6 +146,8 @@
 			children = (
 				3C4DC0FE1F8A9B2D00387034 /* MonthsCollectionViewCell.h */,
 				3C4DC0FF1F8A9B2D00387034 /* MonthsCollectionViewCell.m */,
+				3C2E017D1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.h */,
+				3C2E017E1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.m */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -139,6 +175,8 @@
 		3C6C2D2D1F85EFD800639647 /* VDCalendar */ = {
 			isa = PBXGroup;
 			children = (
+				3C2E01761F8CE4420094B1F6 /* Models */,
+				3C2E01701F8CE0E50094B1F6 /* Resources */,
 				3C4DC0FD1F8A9B0F00387034 /* Cells */,
 				3C4DC0F91F87728100387034 /* Views */,
 				3C1FF48E1F86A99B00D0A63D /* GenericClasses */,
@@ -147,7 +185,6 @@
 				3C6C2D321F85EFD800639647 /* AppDelegate.m */,
 				3C6C2D341F85EFD800639647 /* CalendarViewController.h */,
 				3C6C2D351F85EFD800639647 /* CalendarViewController.m */,
-				3C6C2D3A1F85EFD800639647 /* Assets.xcassets */,
 				3C6C2D3C1F85EFD800639647 /* LaunchScreen.storyboard */,
 				3C6C2D3F1F85EFD800639647 /* Info.plist */,
 				3C6C2D2E1F85EFD800639647 /* Supporting Files */,
@@ -187,6 +224,8 @@
 			children = (
 				3CEF4A3C1F86998F00D8BA48 /* DateDataManager.h */,
 				3CEF4A3D1F86998F00D8BA48 /* DateDataManager.m */,
+				3C2E01731F8CE2920094B1F6 /* AgendasManager.h */,
+				3C2E01741F8CE2920094B1F6 /* AgendasManager.m */,
 			);
 			name = DataManagers;
 			sourceTree = "<group>";
@@ -300,6 +339,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C2E01721F8CE11F0094B1F6 /* Agenda.json in Resources */,
 				3C6C2D3E1F85EFD800639647 /* LaunchScreen.storyboard in Resources */,
 				3C6C2D3B1F85EFD800639647 /* Assets.xcassets in Resources */,
 			);
@@ -327,12 +367,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C6C2D361F85EFD800639647 /* CalendarViewController.m in Sources */,
+				3C2E01751F8CE2920094B1F6 /* AgendasManager.m in Sources */,
+				3C2E017F1F8D21AC0094B1F6 /* AgendaDetailTableViewCell.m in Sources */,
+				3C2E01791F8CE4570094B1F6 /* Agenda.m in Sources */,
 				3C4DC0FC1F8772B200387034 /* MonthsView.m in Sources */,
 				3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */,
 				3C4DC1001F8A9B2D00387034 /* MonthsCollectionViewCell.m in Sources */,
 				3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */,
 				3C6C2D301F85EFD800639647 /* main.m in Sources */,
 				3CEF4A3E1F86998F00D8BA48 /* DateDataManager.m in Sources */,
+				3C2E017C1F8D14C90094B1F6 /* AgendasCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

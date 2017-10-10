@@ -69,5 +69,20 @@
     return nil;
 }
 
++ (NSString *) getDateStringInDDMMYYYYForDate: (NSDate *) date {
+    if(date) {
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateStyle = NSDateFormatterMediumStyle;
+        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+        
+        
+        [formatter setDateFormat:@"dd/MM/yyyy"];
+        
+        return [formatter stringFromDate:date];
+    }
+    return nil;
+}
+
 
 @end

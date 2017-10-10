@@ -10,9 +10,11 @@
 #import "DateDataManager.h"
 #import "GenericFunctions.h"
 #import "MonthsView.h"
-
+#import "AgendasManager.h"
+#import "AgendaDetailTableViewCell.h"
 
 #define kAgendaTableViewHeaderHeight 30.0
+#define kAgendaTableViewCellHeight 120.0
 
 @interface CalendarViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate,MonthsViewDelegate>
 
@@ -25,6 +27,8 @@
     UIButton *todayButton;
     MonthsView *monthsView;
     BOOL isMonthViewVisible;
+    AgendasManager *agendaManager;
+    NSDictionary *agendasCollectionDictionary;
 }
 
 - (void)viewDidLoad {
@@ -37,12 +41,15 @@
 
 
 -(void)setupAgendasTableView{
+    agendaManager = [[AgendasManager alloc] init];
+    agendasCollectionDictionary = [agendaManager getAgendaCollectionDictionary];
     self.agendasTableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     self.agendasTableView.delegate = self;
     self.agendasTableView.dataSource = self;
     [self.agendasTableView setBackgroundColor:[UIColor whiteColor]];
     [self.agendasTableView setShowsVerticalScrollIndicator:NO];
     [self.agendasTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"AgendasHeader"];
+    [self.agendasTableView registerClass:[AgendaDetailTableViewCell class] forCellReuseIdentifier:@"AgendaDetailTableViewCell"];
     NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
                                                        fromDate:[NSDate date]];
     
@@ -106,11 +113,24 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:section]];
+    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
+    if(agendasArray.count)
+        return agendasArray.count;
     return 1;
 }
 
+
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return kAgendaTableViewHeaderHeight;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
+    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
+    if(agendasArray.count)
+        return kAgendaTableViewCellHeight;
+    return 44;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -120,26 +140,23 @@
     
     if(!headerView) {
         headerView =[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"AgendasHeader"];
-    }else{
-//        for(UIView *subview in headerView.subviews)
-//            [subview removeFromSuperview];
     }
-
-    
-//    headerView.t
-    
-//    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 5, 300, 20)];
-    
     NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:section];
     [headerView.textLabel setText:[GenericFunctions getAgendaSectionTitleForDate:dateForSection]];
-//    [headerView addSubview:dateLabel];
     [headerView setBackgroundColor:[UIColor whiteColor]];
     return headerView;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"AgendasCell"];
+    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
+    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
+    if(agendasArray.count){
+        AgendaDetailTableViewCell *agendaDetailTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"AgendaDetailTableViewCell"];
+        [agendaDetailTableViewCell setupCellDataWithAgendaDetails:[agendasArray objectAtIndex:indexPath.row]];
+        return agendaDetailTableViewCell;
+    }
+    UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"NoEventsCell"];
     if(!tableCell){
-        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AgendasCell"];
+        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoEventsCell"];
     }
     [tableCell.textLabel setText:@"No events"];
     return tableCell;
