@@ -29,4 +29,6 @@
 
 -(NSInteger)getCurrentPosition;
 
+-(NSInteger)getPositionOfTodayDate;
+
 @end

@@ -68,6 +68,10 @@
     return [self.endDate timeIntervalSinceDate:self.startDate]/kOneDayTime;
 }
 
+-(NSInteger)getPositionOfTodayDate{
+    return [[NSDate date] timeIntervalSinceDate:_startDate]/kOneDayTime;
+}
+
 - (NSDate *)getDateForPosition: (NSUInteger) position{
     NSDate *date = [_startDate dateByAddingTimeInterval:position * kOneDayTime];
 //    if([date compare:_endDate] ==  NSOrderedDescending)

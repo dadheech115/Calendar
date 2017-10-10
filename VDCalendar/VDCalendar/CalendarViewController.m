@@ -22,6 +22,7 @@
 
 @implementation CalendarViewController{
     UIButton *monthButton;
+    UIButton *todayButton;
     MonthsView *monthsView;
     BOOL isMonthViewVisible;
 }
@@ -74,6 +75,15 @@
     [monthButton setImage:[UIImage imageNamed:@"DownArrow"] forState:UIControlStateNormal];
     [monthButton addTarget:self action:@selector(monthButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:monthButton]];
+    
+    todayButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, 40, 40)];
+    [todayButton setBackgroundImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
+    [todayButton setTitle:[GenericFunctions getDateTitle:[NSDate date]] forState:UIControlStateNormal];
+    [todayButton setContentEdgeInsets:UIEdgeInsetsMake(5, 0, 0, 0)];
+    [todayButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [todayButton addTarget:self action:@selector(todayButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:todayButton]];
     
     if(!monthsView){
         monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
@@ -190,6 +200,15 @@
         [self showMonthsView];
     }
    
+}
+
+-(void)todayButtonTapped{
+    
+    [_agendasTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[[DateDataManager sharedInstance] getPositionOfTodayDate]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    if(isMonthViewVisible){
+        UICollectionView *monthsCollecitonView = [monthsView getCollectionView];
+        [monthsCollecitonView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:[[DateDataManager sharedInstance] getPositionOfTodayDate] inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:YES];
+    }
 }
 
 -(void)showMonthsView{
