@@ -57,7 +57,7 @@
         [weekLabel setTextAlignment:NSTextAlignmentCenter];
         [labelsView addSubview:weekLabel];
     }
-    [labelsView setBackgroundColor:[UIColor grayColor]];
+    [labelsView setBackgroundColor:kThemeColor];
     [self addSubview:labelsView];
 }
 
@@ -65,7 +65,7 @@
     UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
 
     monthsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMonthsCollectionViewCellHeight, self.frame.size.width, 5*kMonthsCollectionViewCellHeight) collectionViewLayout:collectionViewLayout];
-    [monthsCollectionView setBackgroundColor:[UIColor grayColor]];
+    [monthsCollectionView setBackgroundColor:kThemeColor];
     monthsCollectionView.dataSource = self;
     monthsCollectionView.delegate = self;
     UICollectionViewFlowLayout *layout =(UICollectionViewFlowLayout *)monthsCollectionView.collectionViewLayout;
@@ -130,21 +130,15 @@
     [[DateDataManager sharedInstance] updateStartDateTo:[[[DateDataManager sharedInstance] getStartDate] dateByAddingTimeInterval:-kOneDayTime*28]];
     CGFloat offsetY = monthsCollectionView.contentSize.height - monthsCollectionView.contentOffset.y;
     [monthsCollectionView reloadData];
-    [monthsCollectionView layoutIfNeeded]; // Force layout so things are updated before resetting the contentOffset.
+    [monthsCollectionView layoutIfNeeded];
     monthsCollectionView.contentOffset = CGPointMake(0, monthsCollectionView.contentSize.height - offsetY);
     
-    //    [self.agendasTableView reloadData];
 }
 
 -(void)loadNextDates{
     [[DateDataManager sharedInstance] updateEndDateTo:[[[DateDataManager sharedInstance] getEndDate] dateByAddingTimeInterval:kOneDayTime*28]];
-//    CGPoint offset = self.agendasTableView.contentOffset;
-    //    offset.y = kAgendaTableViewHeaderHeight*30;
     [monthsCollectionView reloadData];
-    [monthsCollectionView layoutIfNeeded]; // Force layout so things are updated before resetting the contentOffset.
-//    [self.agendasTableView setContentOffset:offset];
-    
-    //    [self.agendasTableView reloadData];
+    [monthsCollectionView layoutIfNeeded];
 }
 
 @end

@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 @class MonthsView;
+@class AgendaTableView;
 
 @interface CalendarViewController : UIViewController
 
--(UITableView *)getAgendaTableView;
+-(AgendaTableView *)getAgendaTableView;
 
 -(MonthsView *)getMonthsView;
 

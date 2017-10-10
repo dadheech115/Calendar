@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C19A42F1F8D448E0016C71A /* AgendaTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C19A42E1F8D448E0016C71A /* AgendaTableView.m */; };
 		3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */; };
 		3C2E01721F8CE11F0094B1F6 /* Agenda.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C2E01711F8CE11F0094B1F6 /* Agenda.json */; };
 		3C2E01751F8CE2920094B1F6 /* AgendasManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2E01741F8CE2920094B1F6 /* AgendasManager.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C19A42D1F8D448E0016C71A /* AgendaTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgendaTableView.h; sourceTree = "<group>"; };
+		3C19A42E1F8D448E0016C71A /* AgendaTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgendaTableView.m; sourceTree = "<group>"; };
 		3C1FF48F1F86A9AE00D0A63D /* GenericFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GenericFunctions.h; sourceTree = "<group>"; };
 		3C1FF4901F86A9AE00D0A63D /* GenericFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GenericFunctions.m; sourceTree = "<group>"; };
 		3C1FF4921F86BA9A00D0A63D /* CalendarPrefixHeader.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarPrefixHeader.pch; sourceTree = "<group>"; };
@@ -137,6 +140,8 @@
 			children = (
 				3C4DC0FA1F8772B200387034 /* MonthsView.h */,
 				3C4DC0FB1F8772B200387034 /* MonthsView.m */,
+				3C19A42D1F8D448E0016C71A /* AgendaTableView.h */,
+				3C19A42E1F8D448E0016C71A /* AgendaTableView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -373,6 +378,7 @@
 				3C4DC0FC1F8772B200387034 /* MonthsView.m in Sources */,
 				3C6C2D331F85EFD800639647 /* AppDelegate.m in Sources */,
 				3C4DC1001F8A9B2D00387034 /* MonthsCollectionViewCell.m in Sources */,
+				3C19A42F1F8D448E0016C71A /* AgendaTableView.m in Sources */,
 				3C1FF4911F86A9AE00D0A63D /* GenericFunctions.m in Sources */,
 				3C6C2D301F85EFD800639647 /* main.m in Sources */,
 				3CEF4A3E1F86998F00D8BA48 /* DateDataManager.m in Sources */,

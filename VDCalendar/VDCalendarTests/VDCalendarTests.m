@@ -11,10 +11,11 @@
 #import "MonthsView.h"
 #import "GenericFunctions.h"
 #import "DateDataManager.h"
+#import "AgendaTableView.h"
 
-#define kTestIndexForSynchronisationOfAgendaView 275
-#define kTestIndexForSynchronisationOfMonthView 167
-#define kTestIndexForSynchronisationOfMonthsAndAgendaView 29
+#define kTestIndexForSynchronisationOfAgendaView 999
+#define kTestIndexForSynchronisationOfMonthView 29999
+#define kTestIndexForSynchronisationOfMonthsAndAgendaView 11500
 
 @interface VDCalendarTests : XCTestCase
 
@@ -47,9 +48,13 @@
  */
 - (void)testSynchronisationOfAgendaView{
     
-    UITableView *agendaTableView = [calendarViewController getAgendaTableView];
+    AgendaTableView *agendaTableView = [calendarViewController getAgendaTableView];
     
     //Scrolling the table
+    while (kTestIndexForSynchronisationOfAgendaView>[[DateDataManager sharedInstance] getNumberOfDays]) {
+        [agendaTableView loadNextDates];
+    }
+    if(kTestIndexForSynchronisationOfAgendaView)
     [agendaTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:kTestIndexForSynchronisationOfAgendaView] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
     //Getting Date string for current position
@@ -79,7 +84,11 @@
     MonthsView *monthsView = [calendarViewController getMonthsView];
     UICollectionView *monthsCollectionView = [monthsView getCollectionView];
     
-    //Scrolling the table
+    while (kTestIndexForSynchronisationOfMonthView>[[DateDataManager sharedInstance] getNumberOfDays]) {
+        [monthsView loadNextDates];
+    }
+    
+    //Scrolling the Collection
     [monthsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:kTestIndexForSynchronisationOfMonthView inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
     
     //Getting Date string for current position
@@ -108,7 +117,11 @@
     MonthsView *monthsView = [calendarViewController getMonthsView];
     UICollectionView *monthsCollectionView = [monthsView getCollectionView];
     
-    //Scrolling the table
+    while (kTestIndexForSynchronisationOfMonthsAndAgendaView>[[DateDataManager sharedInstance] getNumberOfDays]) {
+        [monthsView loadNextDates];
+    }
+    
+    //Scrolling the Collection
     [monthsCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:kTestIndexForSynchronisationOfMonthsAndAgendaView inSection:0] atScrollPosition:UICollectionViewScrollPositionTop animated:NO];
     
     [monthsCollectionView.delegate collectionView:monthsCollectionView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:kTestIndexForSynchronisationOfMonthsAndAgendaView inSection:0]];

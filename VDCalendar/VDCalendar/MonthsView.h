@@ -22,5 +22,7 @@
 
 -(void)reloadCollection;
 -(UICollectionView *)getCollectionView;
+-(void)loadPreviousDates;
+-(void)loadNextDates;
 
 @end

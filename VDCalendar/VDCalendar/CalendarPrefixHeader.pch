@@ -15,6 +15,10 @@
 #define kMonthsCollectionViewCellHeight 40.0
 #define kMonthsCollectionViewCellWidth [UIScreen mainScreen].bounds.size.width/7
 
+#define kConferenceColor [UIColor colorWithRed:100.0/255.0 green:149.0/255.0 blue:237.0/255.0 alpha:1]
+
+#define kThemeColor [UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:250.0/255.0 alpha:1]
+
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

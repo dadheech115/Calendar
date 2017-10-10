@@ -10,15 +10,11 @@
 #import "DateDataManager.h"
 #import "GenericFunctions.h"
 #import "MonthsView.h"
-#import "AgendasManager.h"
-#import "AgendaDetailTableViewCell.h"
+#import "AgendaTableView.h"
 
-#define kAgendaTableViewHeaderHeight 30.0
-#define kAgendaTableViewCellHeight 120.0
+@interface CalendarViewController ()<UIScrollViewDelegate,MonthsViewDelegate,AgendaTableViewDelegate>
 
-@interface CalendarViewController ()<UITableViewDelegate, UITableViewDataSource,UIScrollViewDelegate,MonthsViewDelegate>
-
-@property (nonatomic, strong) UITableView *agendasTableView;
+@property (nonatomic, strong) AgendaTableView *agendasTableView;
 
 @end
 
@@ -27,8 +23,6 @@
     UIButton *todayButton;
     MonthsView *monthsView;
     BOOL isMonthViewVisible;
-    AgendasManager *agendaManager;
-    NSDictionary *agendasCollectionDictionary;
 }
 
 - (void)viewDidLoad {
@@ -36,39 +30,29 @@
     
     [self setupAgendasTableView];
     [self setupNavigationBar];
+    [self setupMonthsView];
     
 }
 
 
 -(void)setupAgendasTableView{
-    agendaManager = [[AgendasManager alloc] init];
-    agendasCollectionDictionary = [agendaManager getAgendaCollectionDictionary];
-    self.agendasTableView  = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
-    self.agendasTableView.delegate = self;
-    self.agendasTableView.dataSource = self;
-    [self.agendasTableView setBackgroundColor:[UIColor whiteColor]];
-    [self.agendasTableView setShowsVerticalScrollIndicator:NO];
-    [self.agendasTableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"AgendasHeader"];
-    [self.agendasTableView registerClass:[AgendaDetailTableViewCell class] forCellReuseIdentifier:@"AgendaDetailTableViewCell"];
-    NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
-                                                       fromDate:[NSDate date]];
-    
-    weekday--;
-    weekday = weekday+7;
-    [self.agendasTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:weekday] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    self.agendasTableView  = [[AgendaTableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    self.agendasTableView.agendaTableViewDelegate = self;
     [self.view addSubview:self.agendasTableView];
 }
 
--(UITableView *)getAgendaTableView{
+-(AgendaTableView *)getAgendaTableView{
     return _agendasTableView;
 }
 
--(MonthsView *)getMonthsView{
-    [self monthButtonTapped];
-    return monthsView;
+-(void)setupNavigationBar{
+    [self setupMonthsButton];
+    [self setupTodayButton];
+    [self.navigationController.navigationBar setBarTintColor:kThemeColor];
+    
 }
 
--(void)setupNavigationBar{
+-(void)setupMonthsButton{
     monthButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, 100, 40)];
     NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:0];
     NSString *monthString = [GenericFunctions getMonthStringForDate:dateForSection];
@@ -77,12 +61,12 @@
     [monthButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     monthButton.imageEdgeInsets = UIEdgeInsetsMake(0., monthButton.frame.size.width - 20, 0., 0.);
     monthButton.titleEdgeInsets = UIEdgeInsetsMake(0., -20., 0., 20.);
-//    [monthButton setSemanticContentAttribute:UISemanticContentAttributeForceLeftToRight];
-//    [monthButton.imageView setFrame:CGRectMake(80, 0, 20, 20)];
     [monthButton setImage:[UIImage imageNamed:@"DownArrow"] forState:UIControlStateNormal];
     [monthButton addTarget:self action:@selector(monthButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:monthButton]];
-    
+}
+
+-(void)setupTodayButton{
     todayButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, 40, 40)];
     [todayButton setBackgroundImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
     [todayButton setTitle:[GenericFunctions getDateTitle:[NSDate date]] forState:UIControlStateNormal];
@@ -91,122 +75,24 @@
     [todayButton addTarget:self action:@selector(todayButtonTapped) forControlEvents:UIControlEventTouchUpInside];
     
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:todayButton]];
-    
-    if(!monthsView){
-        monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
-        monthsView.delegate = self;
-        isMonthViewVisible = NO;
-    }
-    
 }
 
+-(void)setupMonthsView{
+    monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
+    monthsView.delegate = self;
+    isMonthViewVisible = NO;
+}
+
+
+-(MonthsView *)getMonthsView{
+    return monthsView;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Agenda Table View delegates and data sources
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return [[DateDataManager sharedInstance] getNumberOfDays];
-}
-
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:section]];
-    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
-    if(agendasArray.count)
-        return agendasArray.count;
-    return 1;
-}
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return kAgendaTableViewHeaderHeight;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
-    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
-    if(agendasArray.count)
-        return kAgendaTableViewCellHeight;
-    return 44;
-}
-
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    
-    static NSString *HeaderIdentifier = @"AgendasHeader";
-    UITableViewHeaderFooterView *headerView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:HeaderIdentifier];
-    
-    if(!headerView) {
-        headerView =[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"AgendasHeader"];
-    }
-    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:section];
-    [headerView.textLabel setText:[GenericFunctions getAgendaSectionTitleForDate:dateForSection]];
-    [headerView setBackgroundColor:[UIColor whiteColor]];
-    return headerView;
-}
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
-    NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
-    if(agendasArray.count){
-        AgendaDetailTableViewCell *agendaDetailTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"AgendaDetailTableViewCell"];
-        [agendaDetailTableViewCell setupCellDataWithAgendaDetails:[agendasArray objectAtIndex:indexPath.row]];
-        return agendaDetailTableViewCell;
-    }
-    UITableViewCell *tableCell = [tableView dequeueReusableCellWithIdentifier:@"NoEventsCell"];
-    if(!tableCell){
-        tableCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"NoEventsCell"];
-    }
-    [tableCell.textLabel setText:@"No events"];
-    return tableCell;
-}
-
-#pragma mark - scroll view delegates
-
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    if(isMonthViewVisible)
-        [self hideMonthsView];
-        
-}
-
--(void)scrollViewDidScroll:(UIScrollView *)scrollView{
-    if(scrollView.contentOffset.y<120){
-        [self loadPreviousDates];
-    }else if(scrollView.contentOffset.y+scrollView.frame.size.height>=scrollView.contentSize.height-210){
-        [self loadNextDates];
-    }
-    NSArray *temp = [(UITableView *)scrollView indexPathsForVisibleRows];
-    NSIndexPath *topIndexPath = [temp objectAtIndex:0];
-    
-    [self changeMonthTitleWithPosition:topIndexPath.section];
-    
-}
-
-
-#pragma mark - load more rows
-
--(void)loadPreviousDates{
-    [[DateDataManager sharedInstance] updateStartDateTo:[[[DateDataManager sharedInstance] getStartDate] dateByAddingTimeInterval:-kOneDayTime*35]];
-    CGPoint offset = self.agendasTableView.contentOffset;
-    offset.y = kAgendaTableViewHeaderHeight*30;
-    [self.agendasTableView reloadData];
-    [self.agendasTableView layoutIfNeeded]; // Force layout so things are updated before resetting the contentOffset.
-    [self.agendasTableView setContentOffset:offset];
-    
-//    [self.agendasTableView reloadData];
-}
-
--(void)loadNextDates{
-    [[DateDataManager sharedInstance] updateEndDateTo:[[[DateDataManager sharedInstance] getEndDate] dateByAddingTimeInterval:kOneDayTime*35]];
-    CGPoint offset = self.agendasTableView.contentOffset;
-//    offset.y = kAgendaTableViewHeaderHeight*30;
-    [self.agendasTableView reloadData];
-    [self.agendasTableView layoutIfNeeded]; // Force layout so things are updated before resetting the contentOffset.
-    [self.agendasTableView setContentOffset:offset];
-    
-    //    [self.agendasTableView reloadData];
-}
 
 #pragma mark - month button action
 
@@ -239,10 +125,13 @@
         [monthsView setAlpha:1.0];
         [monthsView reloadCollection];
         monthButton.imageView.transform = CGAffineTransformMakeRotation(M_PI);
+        
     }];
     isMonthViewVisible = YES;
 }
 -(void)hideMonthsView{
+    if(!isMonthViewVisible)
+        return;
     [UIView animateWithDuration:.3 animations:^{
         [monthsView setFrame:CGRectZero];
         CGRect tableFrame = _agendasTableView.frame;
@@ -255,7 +144,7 @@
     isMonthViewVisible = NO;
 }
 
-#pragma mark - Months View Delegate
+#pragma mark - Months View and Agenda Table View Delegate
 
 -(void)changeMonthTitleWithPosition:(NSInteger)position{
     [[DateDataManager sharedInstance] setCurrentPosition:position];
@@ -265,9 +154,12 @@
 
 }
 
+#pragma mark - Months View Delegate
+
 -(void)didSelectItemAtPosition:(NSInteger)position{
     [self.agendasTableView reloadData];
     [self.agendasTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:position] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
+
 
 @end

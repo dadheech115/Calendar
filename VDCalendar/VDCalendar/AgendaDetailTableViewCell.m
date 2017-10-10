@@ -56,7 +56,7 @@
         _labelType.layer.cornerRadius = _labelType.frame.size.height/2;
         [_labelType setClipsToBounds:YES];
         [_labelType setTextColor:[UIColor whiteColor]];
-        [_labelType setBackgroundColor:[UIColor blueColor]];
+        [_labelType setBackgroundColor:kConferenceColor];
         [_labelType setTextAlignment:NSTextAlignmentCenter];
         
         //Title Label
