@@ -33,7 +33,7 @@
         formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
         
         
-        [formatter setDateFormat:@"MMM, YY"];
+        [formatter setDateFormat:@"MMM, YYYY"];
         
         return [formatter stringFromDate:date];
     }
