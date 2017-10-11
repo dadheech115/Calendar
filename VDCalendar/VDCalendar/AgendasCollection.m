@@ -16,6 +16,8 @@
     if(self){
         self.date = [dictionary objectForKey:@"date"];
         NSMutableArray *agendasArray = [NSMutableArray new];
+        
+        //Iterating through array to parse all agendas
         for(NSDictionary *tempAgendaDictionary in [dictionary objectForKey:@"agendas"]){
             Agenda *agenda = [[Agenda alloc] initWithDictionary:tempAgendaDictionary];
             [agendasArray addObject:agenda];

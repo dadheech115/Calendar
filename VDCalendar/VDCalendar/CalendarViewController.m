@@ -53,6 +53,8 @@
 }
 
 -(void)setupMonthsButton{
+    
+    //Setting up month button in left section of navigation bar
     monthButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, 100, 40)];
     NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:0];
     NSString *monthString = [GenericFunctions getMonthStringForDate:dateForSection];
@@ -67,6 +69,8 @@
 }
 
 -(void)setupTodayButton{
+    
+    //Setting up button to naviate to today's date in right section of navigation bar
     todayButton = [[UIButton alloc] initWithFrame:CGRectMake(80, 0, 40, 40)];
     [todayButton setBackgroundImage:[UIImage imageNamed:@"Calendar"] forState:UIControlStateNormal];
     [todayButton setTitle:[GenericFunctions getDateTitle:[NSDate date]] forState:UIControlStateNormal];
@@ -78,6 +82,7 @@
 }
 
 -(void)setupMonthsView{
+    //Initialising months view
     monthsView = [[MonthsView alloc] initWithFrame:CGRectMake(0,64, [UIScreen mainScreen].bounds.size.width, 6*kMonthsCollectionViewCellHeight)];
     monthsView.delegate = self;
     isMonthViewVisible = NO;
@@ -97,6 +102,7 @@
 #pragma mark - month button action
 
 -(void)monthButtonTapped{
+    //Changing visibility of months view
     if(isMonthViewVisible){
         [self hideMonthsView];
     }else{
@@ -106,7 +112,7 @@
 }
 
 -(void)todayButtonTapped{
-    
+    // Scrolling to today's date
     [_agendasTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[[DateDataManager sharedInstance] getPositionOfTodayDate]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     if(isMonthViewVisible){
         UICollectionView *monthsCollecitonView = [monthsView getCollectionView];
@@ -115,6 +121,8 @@
 }
 
 -(void)showMonthsView{
+    if(isMonthViewVisible)
+        return;
     [monthsView setFrame:CGRectZero];
     [self.view addSubview:monthsView];
     [UIView animateWithDuration:.3 animations:^{

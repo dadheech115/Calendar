@@ -104,6 +104,9 @@
 }
 
 -(void)setupCellDataWithAgendaDetails:(Agenda *)agenda{
+    
+    //Setting up values in cell
+    
     [self.labelType setText:[agenda.type substringToIndex:3]];
     [self.labelTitle setText:agenda.title];
     [self.labelAddress setText:agenda.venue];

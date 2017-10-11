@@ -41,20 +41,28 @@
 }
 
 -(void)setup{
+    
+    //Setting up static data from JSON
     agendaManager = [[AgendasManager alloc] init];
     agendasCollectionDictionary = [agendaManager getAgendaCollectionDictionary];
+    
+    //setting up table view
     self.delegate = self;
     self.dataSource = self;
     [self setBackgroundColor:[UIColor whiteColor]];
     [self setShowsVerticalScrollIndicator:NO];
+    
+    //Registering header view and cell's class for reusability
     [self registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:@"AgendasHeader"];
     [self registerClass:[AgendaDetailTableViewCell class] forCellReuseIdentifier:@"AgendaDetailTableViewCell"];
-    NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
-                                                       fromDate:[NSDate date]];
     
-    weekday--;
-    weekday = weekday+7;
-    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:NSNotFound inSection:weekday] atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    //Scrolling the table to today's date at the launch
+//    NSInteger weekday = [[NSCalendar currentCalendar] component:NSCalendarUnitWeekday
+//                                                       fromDate:[NSDate date]];
+//    
+//    weekday--;
+//    weekday = weekday+7;
+    [self scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:[[DateDataManager sharedInstance] getPositionOfTodayDate]] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
 #pragma mark - Agenda Table View delegates and data sources
@@ -116,6 +124,8 @@
 #pragma mark - scroll view delegates
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    
+    //Hiding months view if user starts scrolling
     if(self.agendaTableViewDelegate && [self.agendaTableViewDelegate respondsToSelector:@selector(hideMonthsView)]){
         [self.agendaTableViewDelegate hideMonthsView];
     }
@@ -123,11 +133,16 @@
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    //Checking scroll view's content offset to load next or previous set of dates accordingly
+    
     if(scrollView.contentOffset.y<120){
         [self loadPreviousDates];
     }else if(scrollView.contentOffset.y+scrollView.frame.size.height>=scrollView.contentSize.height-210){
         [self loadNextDates];
     }
+    
+    //Changing the title of month button to display the month of top most cell
     NSArray *temp = [(UITableView *)scrollView indexPathsForVisibleRows];
     NSIndexPath *topIndexPath = [temp objectAtIndex:0];
     

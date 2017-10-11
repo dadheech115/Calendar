@@ -46,6 +46,8 @@
 }
 
 -(void)setupWeeksLabelsView{
+    //Setting up different weekday's label at top of view
+    
     NSArray *weeksLabelArray = [[NSArray alloc] initWithObjects:@"S",@"M",@"T",@"W",@"T",@"F",@"S", nil];
      labelsView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kMonthsCollectionViewCellHeight)];
     CGFloat originX=0;
@@ -62,6 +64,8 @@
 }
 
 -(void)setupMonthsCollectionView{
+    //Setting up continuous scrollable month view
+    
     UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
 
     monthsCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, kMonthsCollectionViewCellHeight, self.frame.size.width, 5*kMonthsCollectionViewCellHeight) collectionViewLayout:collectionViewLayout];
@@ -110,23 +114,31 @@
 #pragma mark - scroll view delegates
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    //Checking scroll view's content offset to load next or previous set of dates accordingly
+    
     if(scrollView.contentOffset.y<kMonthsCollectionViewCellHeight && !isLoadingFirstTime){
         [self loadPreviousDates];
     }else if(scrollView.contentOffset.y+scrollView.frame.size.height>=4*kMonthsCollectionViewCellHeight){
         [self loadNextDates];
         isLoadingFirstTime = NO;
     }
+    
+    //Changing the title of month button to display the month of top most cell
     NSIndexPath *topIndexpath =[(UICollectionView *)scrollView indexPathForItemAtPoint:CGPointMake(10, scrollView.contentOffset.y+10)] ;
         if(self.delegate && [self.delegate respondsToSelector:@selector(changeMonthTitleWithPosition:)]){
             [self.delegate changeMonthTitleWithPosition:topIndexpath.row];
         }
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+//    [self.delegate startOrEndDateChanged];
+}
+
 
 #pragma mark - load more rows
 
 -(void)loadPreviousDates{
-    
+    // Loading previous 28 dates
     [[DateDataManager sharedInstance] updateStartDateTo:[[[DateDataManager sharedInstance] getStartDate] dateByAddingTimeInterval:-kOneDayTime*28]];
     CGFloat offsetY = monthsCollectionView.contentSize.height - monthsCollectionView.contentOffset.y;
     [monthsCollectionView reloadData];
@@ -136,6 +148,7 @@
 }
 
 -(void)loadNextDates{
+    //Loading next 28 dates
     [[DateDataManager sharedInstance] updateEndDateTo:[[[DateDataManager sharedInstance] getEndDate] dateByAddingTimeInterval:kOneDayTime*28]];
     [monthsCollectionView reloadData];
     [monthsCollectionView layoutIfNeeded];
