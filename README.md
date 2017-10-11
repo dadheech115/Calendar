@@ -4,9 +4,9 @@ Calendar app to manage your daily agendas
 The screen presented upon launch has following elements:
 
 
-1. Scrollable Agenda View
-2. A button displaying Month and year of top most cell in view
-3. A button displaying Today's date
+:: Scrollable Agenda View
+:: A button displaying Month and year of top most cell in view
+:: A button displaying Today's date
 
 :: Scrollable Agenda View:
    i. This view also has some preloaded agendas which are being read from a static JSON file as of now.
