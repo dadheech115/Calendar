@@ -15,7 +15,7 @@
 
 #define kTestIndexForSynchronisationOfAgendaView 999
 #define kTestIndexForSynchronisationOfMonthView 29999
-#define kTestIndexForSynchronisationOfMonthsAndAgendaView 11500
+#define kTestIndexForSynchronisationOfMonthsAndAgendaView 3123
 
 @interface VDCalendarTests : XCTestCase
 
