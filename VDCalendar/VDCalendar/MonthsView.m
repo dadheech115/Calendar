@@ -130,8 +130,8 @@
         }
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-//    [self.delegate startOrEndDateChanged];
+-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    return NO;
 }
 
 

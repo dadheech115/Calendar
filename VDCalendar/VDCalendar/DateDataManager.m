@@ -15,6 +15,8 @@
 @property (nonatomic, strong) NSDate *startDate;
 @property (nonatomic, strong) NSDate *endDate;
 @property (nonatomic, assign) NSInteger currentPosition;
+@property (nonatomic, strong) NSDateFormatter *formatterDDMMYYYY;
+@property (nonatomic, strong) NSDateFormatter *formatterAgendaTitle;
 
 
 
@@ -36,8 +38,19 @@
             
 //            weekday--;
 //            weekday = weekday+7;
-            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*(weekday+6)];
-            _sharedInstance.endDate = [[NSDate date] dateByAddingTimeInterval:kOneDayTime*(28-weekday)];
+            _sharedInstance.startDate = [[NSDate date] dateByAddingTimeInterval:-kOneDayTime*(weekday+6+7)];
+            _sharedInstance.endDate = [[NSDate date] dateByAddingTimeInterval:kOneDayTime*(35-weekday)];
+            
+             _sharedInstance.formatterDDMMYYYY= [[NSDateFormatter alloc] init];
+            _sharedInstance.formatterDDMMYYYY.dateStyle = NSDateFormatterMediumStyle;
+            _sharedInstance.formatterDDMMYYYY.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            
+            _sharedInstance.formatterAgendaTitle= [[NSDateFormatter alloc] init];
+            _sharedInstance.formatterAgendaTitle.dateStyle = NSDateFormatterMediumStyle;
+            _sharedInstance.formatterAgendaTitle.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            
+            [_sharedInstance.formatterDDMMYYYY setDateFormat:@"dd/MM/yyyy"];
+            [_sharedInstance.formatterAgendaTitle setDateFormat:@"EEEE, d MMM"];
             
         });
     }
@@ -72,10 +85,20 @@
     return [[NSDate date] timeIntervalSinceDate:_startDate]/kOneDayTime;
 }
 
+- (NSString *)getDateInDDMMYYYFormat: (NSUInteger) position{
+     NSDate *date = [_startDate dateByAddingTimeInterval:position * kOneDayTime];
+    return [_formatterDDMMYYYY stringFromDate:date];
+}
+- (NSString *)getAgendaTitleForPosition: (NSUInteger) position{
+    NSDate *date = [_startDate dateByAddingTimeInterval:position * kOneDayTime];
+
+    return [_formatterAgendaTitle stringFromDate:date];
+}
+
+
+
 - (NSDate *)getDateForPosition: (NSUInteger) position{
     NSDate *date = [_startDate dateByAddingTimeInterval:position * kOneDayTime];
-//    if([date compare:_endDate] ==  NSOrderedDescending)
-//        return nil;
     return date;
 }
 

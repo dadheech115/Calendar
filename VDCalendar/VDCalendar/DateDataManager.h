@@ -31,4 +31,8 @@
 
 -(NSInteger)getPositionOfTodayDate;
 
+- (NSString *)getDateInDDMMYYYFormat: (NSUInteger) position;
+
+- (NSString *)getAgendaTitleForPosition: (NSUInteger) position;
+
 @end

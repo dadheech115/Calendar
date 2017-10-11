@@ -22,6 +22,7 @@
 @implementation AgendaTableView{
     AgendasManager *agendaManager;
     NSDictionary *agendasCollectionDictionary;
+    BOOL isFirstTimeLoading;
 }
 
 /*
@@ -49,6 +50,7 @@
     //setting up table view
     self.delegate = self;
     self.dataSource = self;
+    isFirstTimeLoading = YES;
     [self setBackgroundColor:[UIColor whiteColor]];
     [self setShowsVerticalScrollIndicator:NO];
     
@@ -72,7 +74,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:section]];
+    NSString *dateString = [[DateDataManager sharedInstance] getDateInDDMMYYYFormat:section];
     NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
     if(agendasArray.count)
         return agendasArray.count;
@@ -84,12 +86,18 @@
     return kAgendaTableViewHeaderHeight;
 }
 
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
+    NSString *dateString = [[DateDataManager sharedInstance] getDateInDDMMYYYFormat:indexPath.section];
     NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
     if(agendasArray.count)
         return kAgendaTableViewCellHeight;
     return 44;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return kAgendaTableViewCellHeight;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -100,13 +108,13 @@
     if(!headerView) {
         headerView =[[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"AgendasHeader"];
     }
-    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:section];
-    [headerView.textLabel setText:[GenericFunctions getAgendaSectionTitleForDate:dateForSection]];
+//    NSDate *dateForSection = [[DateDataManager sharedInstance] getDateForPosition:section];
+    [headerView.textLabel setText:[[DateDataManager sharedInstance] getAgendaTitleForPosition:section]];
     [headerView.contentView setBackgroundColor:kThemeColor];
     return headerView;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *dateString = [GenericFunctions getDateStringInDDMMYYYYForDate:[[DateDataManager sharedInstance] getDateForPosition:indexPath.section]];
+    NSString *dateString = [[DateDataManager sharedInstance] getDateInDDMMYYYFormat:indexPath.section];
     NSArray *agendasArray = [agendasCollectionDictionary objectForKey:dateString];
     if(agendasArray.count){
         AgendaDetailTableViewCell *agendaDetailTableViewCell = [tableView dequeueReusableCellWithIdentifier:@"AgendaDetailTableViewCell"];
@@ -132,16 +140,23 @@
     
 }
 
+-(BOOL)scrollViewShouldScrollToTop:(UIScrollView *)scrollView{
+    return NO;
+}
+
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     //Checking scroll view's content offset to load next or previous set of dates accordingly
-    
+    if(!isFirstTimeLoading){
     if(scrollView.contentOffset.y<120){
         [self loadPreviousDates];
     }else if(scrollView.contentOffset.y+scrollView.frame.size.height>=scrollView.contentSize.height-210){
         [self loadNextDates];
     }
-    
+    }
+    else{
+        isFirstTimeLoading = NO;
+    }
     //Changing the title of month button to display the month of top most cell
     NSArray *temp = [(UITableView *)scrollView indexPathsForVisibleRows];
     NSIndexPath *topIndexPath = [temp objectAtIndex:0];
